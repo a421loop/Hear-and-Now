@@ -318,3 +318,59 @@ class HearAndNow {
             this.resetTimerButton();
         } else {
             // Timer finished, start again
+            this.startTimer();
+        }
+    }
+
+    startTimer() {
+        const timerSelect = document.getElementById('timerSelect');
+        this.timeRemaining = parseInt(timerSelect.value, 10);
+        
+        if (isNaN(this.timeRemaining) || this.timeRemaining <= 0) {
+            alert('Please select a valid timer duration.');
+            return;
+        }
+        
+        this.isRunning = true;
+        this.updateTimerDisplay();
+        document.getElementById('timerDisplay').classList.add('active');
+        document.getElementById('timerButton').textContent = 'Stop';
+        
+        this.timer = setInterval(() => {
+            this.timeRemaining--;
+            this.updateTimerDisplay();
+            
+            if (this.timeRemaining <= 0) {
+                this.stopTimer();
+                this.nextPrompt();
+                this.resetTimerButton();
+            }
+        }, 1000);
+    }
+
+    stopTimer() {
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        
+        this.isRunning = false;
+        this.timeRemaining = 0;
+        document.getElementById('timerDisplay').classList.remove('active');
+    }
+
+    resetTimerButton() {
+        document.getElementById('timerButton').textContent = 'Start';
+    }
+
+    updateTimerDisplay() {
+        const display = document.getElementById('timerDisplay');
+        const minutes = Math.floor(this.timeRemaining / 60);
+        const seconds = this.timeRemaining % 60;
+        display.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    window.hearAndNow = new HearAndNow();
+});
