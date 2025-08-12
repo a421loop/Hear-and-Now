@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.4s ease;
+}
+
+/* Background colors */
+.bg-blue1 { background-color: #8ECAE6; }
+.bg-blue2 { background-color: #219EBC; }
+.bg-yellow { background-color: #FFB703; }
+.bg-darkblue { background-color: #023047; }
+.bg-orange { background-color: #FB8500; }
+
+.card {
+  width: 400px;
+  height: 250px;
+  background: white;
+  border-radius: 32px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  transition: transform 0.3s ease;
+}
+
+.card.flipping {
+  transform: scale(0.95) rotateY(5deg);
+}
+
+.prompt-text {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #000;
+  letter-spacing: -0.5px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.loading {
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+
+/* Theme Selector */
+.theme-selector {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+
+.theme-selector select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 12px 40px 12px 20px;
+  border: 2px solid #023047;
+  border-radius: 12px;
+  background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="20" viewBox="0 0 28 20" fill="none"><rect x="0" y="5" width="2" height="10" fill="%23023047"/><rect x="4" y="0" width="2" height="20" fill="%23023047"/><rect x="8" y="3" width="2" height="14" fill="%23023047"/><rect x="12" y="7" width="2" height="6" fill="%23023047"/><rect x="16" y="1" width="2" height="18" fill="%23023047"/><rect x="20" y="4" width="2" height="12" fill="%23023047"/><rect x="24" y="2" width="2" height="16" fill="%23023047"/></svg>') no-repeat right 12px center / 28px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: #023047;
+}
+
+/* Controls */
+.controls {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-button {
+  width: 56px;
+  height: 56px;
+  background: white;
+  border: 2px solid #023047;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: #023047;
+}
+
+.nav-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Timer Controls */
+.timer-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.timer-dropdown select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 12px 36px 12px 16px;
+  border: 2px solid #023047;
+  border-radius: 8px;
+  background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="0" y="4" width="2" height="6" fill="%23023047"/><rect x="4" y="0" width="2" height="14" fill="%23023047"/><rect x="8" y="3" width="2" height="8" fill="%23023047"/><rect x="12" y="1" width="2" height="12" fill="%23023047"/><rect x="16" y="2" width="2" height="10" fill="%23023047"/></svg>') no-repeat right 10px center / 18px 14px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  color: #023047;
+}
+
+.timer-button {
+  padding: 12px 24px;
+  background: #023047;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.timer-button:hover {
+  background: #03507a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.timer-display {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+  background: rgba(0,0,0,0.9);
+  padding: 16px 24px;
+  border-radius: 16px;
+  display: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.timer-display.active {
+  display: block;
+}
