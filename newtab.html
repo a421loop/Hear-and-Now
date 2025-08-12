@@ -1,241 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hear and Now</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hear and Now</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Helvetica Neue', Arial, sans-serif;
-      height: 100vh;
-      background: #8ecae6; /* default background */
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      transition: background-color 0.4s ease;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            height: 100vh;
+            background: #f5f5f5;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: background-color 0.4s ease;
+        }
 
-    .card {
-      width: 600px; /* smaller width */
-      height: 400px; /* smaller height */
-      background: white;
-      border-radius: 32px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      position: relative;
-      transition: transform 0.3s ease;
-    }
+        .card {
+            width: 400px; /* half width */
+            height: 250px; /* half height */
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px; /* half padding */
+            position: relative;
+            transition: transform 0.3s ease;
+        }
 
-    .card.flipping {
-      transform: scale(0.95) rotateY(5deg);
-    }
+        .card.flipping {
+            transform: scale(0.95) rotateY(5deg);
+        }
 
-    .prompt-text {
-      font-size: 36px; /* decreased font size */
-      font-weight: 500;
-      text-align: left;
-      line-height: 1.2;
-      color: #000;
-      letter-spacing: -0.5px;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
+        .prompt-text {
+            font-size: 24px; /* half font size */
+            font-weight: 500;
+            text-align: left;
+            line-height: 1.1;
+            color: #000;
+            letter-spacing: -0.5px; /* scaled letter spacing */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
 
-    .loading {
-      font-size: 28px;
-      color: #666;
-      font-weight: 500;
-      text-align: center;
-      width: 100%;
-    }
+        .loading {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+        }
 
-    /* Controls positioned outside the card */
-    .theme-selector {
-      position: absolute;
-      top: 30px;
-      left: 30px;
-      z-index: 20;
-    }
+        /* Controls positioned outside the card */
+        .theme-selector {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 20;
+        }
 
-    .theme-selector select {
-      /* Equal padding left and right for balanced spacing */
-      padding: 12px 16px; 
-      border: 2px solid #333;
-      border-radius: 12px;
-      background: white;
-      font-size: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Helvetica Neue', Arial, sans-serif;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      /* Remove default arrow spacing issues in some browsers */
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px 16px;
-    }
+        .theme-selector select {
+            padding: 8px 14px;
+            border: 2px solid #333;
+            border-radius: 12px;
+            background: white;
+            font-size: 14px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            min-width: 140px; /* to keep consistent width */
+        }
 
-    .controls {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      z-index: 20;
-    }
+        .controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 16px; /* smaller gap */
+            align-items: center;
+            z-index: 20;
+        }
 
-    .nav-button {
-      width: 56px;
-      height: 56px;
-      background: white;
-      border: 2px solid #333;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 24px;
-      font-weight: bold;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+        .nav-button {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
-    .nav-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    }
+        .nav-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
 
-    .timer-controls {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
+        .timer-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
 
-    .timer-dropdown select {
-      padding: 12px 16px;
-      border: 2px solid #333;
-      border-radius: 8px;
-      background: white;
-      font-size: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Helvetica Neue', Arial, sans-serif;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+        .timer-dropdown select {
+            padding: 8px 12px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
-    .timer-button {
-      padding: 12px 24px;
-      background: #333;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Helvetica Neue', Arial, sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
+        .timer-button {
+            padding: 8px 16px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
 
-    .timer-button:hover {
-      background: #555;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
+        .timer-button:hover {
+            background: #555;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
 
-    .timer-display {
-      position: absolute;
-      top: 30px;
-      right: 30px;
-      font-size: 42px;
-      font-weight: 700;
-      color: white;
-      background: rgba(0, 0, 0, 0.9);
-      padding: 16px 24px;
-      border-radius: 16px;
-      display: none;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Helvetica Neue', Arial, sans-serif;
-      z-index: 20;
-    }
+        .timer-display {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            background: rgba(0,0,0,0.9);
+            padding: 12px 18px;
+            border-radius: 16px;
+            display: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            z-index: 20;
+        }
 
-    .timer-display.active {
-      display: block;
-    }
+        .timer-display.active {
+            display: block;
+        }
 
-    /* Background colors */
-    .bg-amber {
-      background: #ffb703;
-    }
-    .bg-teal {
-      background: #219ebc;
-    }
-    .bg-gray {
-      background: #8ecae6;
-    }
-    .bg-blue {
-      background: #023047;
-    }
-    .bg-green {
-      background: #fb8500;
-    }
-    .bg-lavender {
-      background: #219ebc; /* Reused for sixth color */
-    }
-  </style>
+        /* Background colors */
+        .bg-amber { background: #8ECAE6; }
+        .bg-teal { background: #219EBC; }
+        .bg-yellow { background: #FFB703; }
+        .bg-darkblue { background: #023047; }
+        .bg-orange { background: #FB8500; }
+    </style>
 </head>
-<body class="bg-gray">
-  <div class="theme-selector">
-    <select id="themeSelect">
-      <option value="all">All Themes</option>
-    </select>
-  </div>
-
-  <div class="card" id="card">
-    <div class="prompt-text" id="promptText">
-      <div class="loading">Loading listening prompts...</div>
-    </div>
-  </div>
-
-  <div class="controls">
-    <button class="nav-button" id="prevButton">‹</button>
-    <div class="timer-controls">
-      <div class="timer-dropdown">
-        <select id="timerSelect">
-          <option value="30">30s</option>
-          <option value="60">1m</option>
+<body class="bg-amber">
+    <div class="theme-selector">
+        <select id="themeSelect">
+            <option value="all">All Themes</option>
         </select>
-      </div>
-      <button class="timer-button" id="timerButton">Start</button>
     </div>
-    <button class="nav-button" id="nextButton">›</button>
-  </div>
 
-  <div class="timer-display" id="timerDisplay">0:00</div>
+    <div class="card" id="card">
+        <div class="prompt-text" id="promptText">
+            <div class="loading">Loading listening prompts...</div>
+        </div>
+    </div>
 
-  <script src="newtab.js"></script>
+    <div class="controls">
+        <button class="nav-button" id="prevButton">‹</button>
+        <div class="timer-controls">
+            <div class="timer-dropdown">
+                <select id="timerSelect">
+                    <option value="30">30s</option>
+                    <option value="60">1m</option>
+                </select>
+            </div>
+            <button class="timer-button" id="timerButton">Start</button>
+        </div>
+        <button class="nav-button" id="nextButton">›</button>
+    </div>
+
+    <div class="timer-display" id="timerDisplay">0:00</div>
+
+    <script src="newtab.js"></script>
 </body>
 </html>
