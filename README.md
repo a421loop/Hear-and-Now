@@ -13,7 +13,7 @@
 7. Open a new tab to test - you should see the "Hear and Now" interface
 
 
-#### How to Turn Off/Remove the Extension 
+#### How to Turn Off/Remove the Extension - if we are not putting this on the app store
 1. Go to `chrome://extensions/`
 2. Find "Hear and Now" in your extensions list
 3. **To temporarily disable:** Toggle the switch off (you can turn it back on anytime)
