@@ -6,7 +6,7 @@ class ListeningPrompts {
         this.timer = null;
         this.timeRemaining = 0;
         this.isRunning = false;
-        this.backgroundColors = ['bg-amber', 'bg-teal', 'bg-yellow', 'bg-darkblue', 'bg-orange'];
+        this.backgroundColors = ['bg-blue1', 'bg-blue2', 'bg-yellow', 'bg-darkblue', 'bg-orange'];
         this.currentColorIndex = 0;
 
         // Audio for navigation sound
@@ -122,7 +122,7 @@ class ListeningPrompts {
             }
 
             const headers = this.parseCSVLine(lines[0]);
-            console.log('CSV Headers:', headers); // Debug log
+            console.log('CSV Headers:', headers);
 
             this.prompts = [];
             const themes = new Set();
@@ -132,7 +132,7 @@ class ListeningPrompts {
                 if (!line) continue;
 
                 const values = this.parseCSVLine(line);
-                console.log(`Row ${i}:`, values); // Debug each row
+                console.log(`Row ${i}:`, values);
 
                 if (values.length >= 2) {
                     const theme = values[0].trim();
@@ -149,9 +149,8 @@ class ListeningPrompts {
             console.log(`Loaded ${this.prompts.length} listening prompts`);
             console.log('Themes found:', Array.from(themes));
 
-            // Populate theme selector
             const themeSelect = document.getElementById('themeSelect');
-            themeSelect.innerHTML = '<option value="all">All Themes</option>'; // Clear existing options
+            themeSelect.innerHTML = '<option value="all">All Themes</option>';
 
             Array.from(themes).sort().forEach(theme => {
                 const option = document.createElement('option');
@@ -189,7 +188,6 @@ class ListeningPrompts {
             if (char === '"') {
                 quoteCount++;
                 inQuotes = quoteCount % 2 !== 0;
-                // Don't add the quote character to the result
             } else if (char === ',' && !inQuotes) {
                 result.push(current.trim());
                 current = '';
@@ -208,7 +206,6 @@ class ListeningPrompts {
         document.getElementById('timerButton').addEventListener('click', () => this.handleTimerButton());
         document.getElementById('themeSelect').addEventListener('change', (e) => this.filterByTheme(e.target.value));
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
@@ -247,7 +244,6 @@ class ListeningPrompts {
             this.updateBackgroundColor();
         }, 150);
 
-        // Reset timer if running
         if (this.isRunning) {
             this.stopTimer();
             this.resetTimerButton();
@@ -266,7 +262,6 @@ class ListeningPrompts {
             this.updateBackgroundColor();
         }, 150);
 
-        // Reset timer if running
         if (this.isRunning) {
             this.stopTimer();
             this.resetTimerButton();
@@ -296,11 +291,7 @@ class ListeningPrompts {
 
     updateBackgroundColor() {
         const body = document.body;
-
-        // Remove all background classes
         this.backgroundColors.forEach(color => body.classList.remove(color));
-
-        // Add current background class
         this.currentColorIndex = this.currentIndex % this.backgroundColors.length;
         body.classList.add(this.backgroundColors[this.currentColorIndex]);
     }
@@ -309,15 +300,12 @@ class ListeningPrompts {
         const button = document.getElementById('timerButton');
 
         if (!this.isRunning && this.timeRemaining === 0) {
-            // Start timer
             this.startTimer();
         } else if (this.isRunning) {
-            // Stop and go to next prompt
             this.stopTimer();
             this.nextPrompt();
             this.resetTimerButton();
         } else {
-            // Timer finished, start again
             this.resetTimerButton();
             this.startTimer();
         }
@@ -376,7 +364,6 @@ class ListeningPrompts {
     }
 }
 
-// Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new ListeningPrompts();
 });
