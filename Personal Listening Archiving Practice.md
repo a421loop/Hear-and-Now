@@ -37,6 +37,18 @@ For each entry in your sonic data log, consider and note:
 - **Share publicly (no name)** 
 - **Share publicly (with name)** 
 
-### What You Turn In
-Your complete Sonic Data Log in whatever medium works for your archival practice. **Please ensure that the you specify the privacy level of this submission.**
+### Reflection Questions
+After your 3-5 days of collection, reflect briefly on the experience. You can use any of these questions.
 
+- How did having listening prompts interrupt your browsing change your relationship to opening new tabs?
+- What patterns did you notice in the sounds of your daily environments?
+- Which sounds became meaningful to you that you hadn't noticed before?
+- How did documenting sounds change the way you listened?
+- What surprised you about building your own sonic archive?
+- How did your browser feel different as a listening tool rather than just an internet access tool?
+- What would you want to do with this collection of sound observations?
+
+
+### What You Turn In
+1. Your complete Sonic Data Log in whatever medium works for your archival practice. **Please ensure that the you specify the privacy level of this submission.**
+2. Your reflection in whatever format
