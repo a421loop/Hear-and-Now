@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Here and Now",
   "version": "1.0",
-  "description": "A new tab page with rotating listening prompts and optional timer (Here and Now)",
+  "description": "A new tab page with rotating listening prompts and optional timer",
   "permissions": [
     "storage"
   ],
@@ -11,5 +11,10 @@
   ],
   "chrome_url_overrides": {
     "newtab": "newtab.html"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   }
 }
