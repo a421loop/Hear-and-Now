@@ -2,19 +2,11 @@
   "manifest_version": 3,
   "name": "Hear and Now",
   "version": "1.0",
-  "description": "A new tab page with rotating Hear and Now prompts and optional timer",
+  "description": "A new tab page with rotating listening prompts and optional timer",
   "permissions": [
     "storage"
   ],
-  "host_permissions": [
-    "https://docs.google.com/spreadsheets/d/1S1H85HLtGZFVoxh13zDG_lvsDcDlC919CAhF9zP36ew/*"
-  ],
   "chrome_url_overrides": {
     "newtab": "newtab.html"
-  },
-  "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
   }
 }
