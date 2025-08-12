@@ -1,6 +1,6 @@
 ## Chrome Extension Installation - if we are not putting this on the app store
 
-1. Download the extension files (manifest.json, newtab.html, newtab.js, styles.css) into one folder on your computer **Dont download the activity markdown please**
+1. Download the extension files (manifest.json, newtab.html, newtab.js, styles.css) into one folder on your computer **No need to download the activity markdown**
 2. Open Chrome/Brave/Any browser that support chrome extensions and go to `chrome://extensions/`
 3. Turn on "Developer mode" (toggle in top right)
 4. Click "Load unpacked"
