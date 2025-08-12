@@ -9,7 +9,7 @@ Install the "Hear and Now" Chrome extension and use it as much as you want throu
 Each listening prompt you engage with becomes an entry in your personal audio archive, helping you practice "thinking with and by means of sound" rather than just thinking about sound.
 
 ### The Collection Process
-1. Install the extension -- check readme please (not there yet haha)
+1. Install the extension -- check readme please 
 2. Every time you get a listening prompt and decide to listen or not, document what you heard in your **Sonic Listening Data Log**
 3. Collect your activity over 3 to 5 days
 
