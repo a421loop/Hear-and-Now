@@ -14,7 +14,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             height: 100vh;
-            background: #f5f5f5;
+            background: #8ECAE6;
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -24,15 +24,15 @@
         }
 
         .card {
-            width: 400px; /* half width */
-            height: 250px; /* half height */
+            width: 400px;
+            height: 250px;
             background: white;
             border-radius: 32px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px; /* half padding */
+            padding: 40px;
             position: relative;
             transition: transform 0.3s ease;
         }
@@ -42,12 +42,12 @@
         }
 
         .prompt-text {
-            font-size: 24px; /* half font size */
+            font-size: 24px;
             font-weight: 500;
             text-align: left;
             line-height: 1.1;
             color: #000;
-            letter-spacing: -0.5px; /* scaled letter spacing */
+            letter-spacing: -0.5px;
             width: 100%;
             height: 100%;
             display: flex;
@@ -62,7 +62,6 @@
             width: 100%;
         }
 
-        /* Controls positioned outside the card */
         .theme-selector {
             position: absolute;
             top: 30px;
@@ -71,16 +70,24 @@
         }
 
         .theme-selector select {
-            padding: 8px 14px;
-            border: 2px solid #333;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 12px 40px 12px 20px;
+            border: 2px solid #023047;
             border-radius: 12px;
             background: white;
-            font-size: 14px;
+            font-size: 16px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             font-weight: 500;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            min-width: 140px; /* to keep consistent width */
+            position: relative;
+            color: #023047;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23023047" height="16" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M2 12h2v4H2zm4-6h2v10H6zm4-4h2v14h-2zm4 6h2v4h-2zm4-8h2v12h-2z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px 20px;
         }
 
         .controls {
@@ -89,25 +96,26 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 16px; /* smaller gap */
+            gap: 24px;
             align-items: center;
             z-index: 20;
         }
 
         .nav-button {
-            width: 40px;
-            height: 40px;
+            width: 56px;
+            height: 56px;
             background: white;
-            border: 2px solid #333;
+            border: 2px solid #023047;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 24px;
             font-weight: bold;
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: #023047;
         }
 
         .nav-button:hover {
@@ -117,29 +125,30 @@
 
         .timer-controls {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             align-items: center;
         }
 
         .timer-dropdown select {
-            padding: 8px 12px;
-            border: 2px solid #333;
+            padding: 12px 16px;
+            border: 2px solid #023047;
             border-radius: 8px;
             background: white;
-            font-size: 14px;
+            font-size: 16px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             font-weight: 500;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #023047;
         }
 
         .timer-button {
-            padding: 8px 16px;
-            background: #333;
+            padding: 12px 24px;
+            background: #023047;
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             font-weight: 600;
             cursor: pointer;
@@ -148,7 +157,7 @@
         }
 
         .timer-button:hover {
-            background: #555;
+            background: #03507a;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
@@ -157,11 +166,11 @@
             position: absolute;
             top: 30px;
             right: 30px;
-            font-size: 28px;
+            font-size: 42px;
             font-weight: 700;
             color: white;
             background: rgba(0,0,0,0.9);
-            padding: 12px 18px;
+            padding: 16px 24px;
             border-radius: 16px;
             display: none;
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
@@ -172,13 +181,6 @@
         .timer-display.active {
             display: block;
         }
-
-        /* Background colors */
-        .bg-amber { background: #8ECAE6; }
-        .bg-teal { background: #219EBC; }
-        .bg-yellow { background: #FFB703; }
-        .bg-darkblue { background: #023047; }
-        .bg-orange { background: #FB8500; }
     </style>
 </head>
 <body class="bg-amber">
