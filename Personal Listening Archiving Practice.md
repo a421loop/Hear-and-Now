@@ -1,4 +1,3 @@
-```markdown
 # Life in Sound Class Out of Class Activity
 
 ### The Goal
@@ -43,4 +42,3 @@ For each entry in your sonic data log, consider and note:
 ### What You Turn In
 Your complete Sonic Data Log in whatever medium works for your archival practice. **Please ensure that the you specify the privacy level of this submission.**
 
-```
