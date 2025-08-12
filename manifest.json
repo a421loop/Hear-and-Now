@@ -1,9 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Prompt Timer",
+  "name": "Here and Now",
   "version": "1.0",
-  "description": "A writing prompt timer tool.",
-  "permissions": [],
+  "description": "A new tab page with rotating listening prompts and optional timer (Here and Now)",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://docs.google.com/*"
+  ],
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   }
