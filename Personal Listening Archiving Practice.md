@@ -37,8 +37,6 @@ For each entry in your sonic data log, consider and note:
 - **Share publicly (no name)** 
 - **Share publicly (with name)** 
 
-**Notes:** Brief explanation of why you chose this privacy level for this particular sonic observation.
-
 ### What You Turn In
 Your complete Sonic Data Log in whatever medium works for your archival practice. **Please ensure that the you specify the privacy level of this submission.**
 
