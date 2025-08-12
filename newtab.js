@@ -1,4 +1,4 @@
-class HereAndNow {
+class HearAndNow {
     constructor() {
         this.prompts = [];
         this.filteredPrompts = [];
@@ -101,9 +101,9 @@ class HereAndNow {
 
     async loadPrompts() {
         try {
-            console.log('Loading Here and Now prompts from Google Sheet...');
+            console.log('Loading Hear and Now prompts from Google Sheet...');
             const sheetId = '1S1H85HLtGZFVoxh13zDG_lvsDcDlC919CAhF9zP36ew';
-            const gid = '1226884355'; // Keep this if it's your intended tab
+            const gid = '1226884355'; // Specific sheet tab from your URL
             const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
             console.log('Fetching URL:', url);
             
@@ -114,6 +114,7 @@ class HereAndNow {
             
             const csvText = await response.text();
             console.log('CSV response length:', csvText.length);
+            console.log('First 500 chars:', csvText.substring(0, 500));
             
             const lines = csvText.split('\n').filter(line => line.trim());
             if (lines.length === 0) {
@@ -121,7 +122,7 @@ class HereAndNow {
             }
             
             const headers = this.parseCSVLine(lines[0]);
-            console.log('CSV Headers:', headers);
+            console.log('CSV Headers:', headers); // Debug log
             
             this.prompts = [];
             const themes = new Set();
@@ -131,6 +132,8 @@ class HereAndNow {
                 if (!line) continue;
                 
                 const values = this.parseCSVLine(line);
+                console.log(`Row ${i}:`, values); // Debug each row
+                
                 if (values.length >= 2) {
                     const theme = values[0].trim();
                     const prompt = values[1].trim();
@@ -138,34 +141,37 @@ class HereAndNow {
                     if (theme && prompt) {
                         this.prompts.push({ theme, prompt });
                         themes.add(theme);
+                        console.log(`Added Hear and Now prompt: ${theme} - ${prompt.substring(0, 50)}...`);
                     }
                 }
             }
             
-            console.log(`Loaded ${this.prompts.length} Here and Now prompts`);
+            console.log(`Loaded ${this.prompts.length} Hear and Now prompts`);
+            console.log('Themes found:', Array.from(themes));
             
             // Populate theme selector
             const themeSelect = document.getElementById('themeSelect');
-            themeSelect.innerHTML = '<option value="all">All Themes</option>';
+            themeSelect.innerHTML = '<option value="all">All Themes</option>'; // Clear existing options
             
             Array.from(themes).sort().forEach(theme => {
                 const option = document.createElement('option');
                 option.value = theme;
                 option.textContent = theme;
                 themeSelect.appendChild(option);
+                console.log(`Added theme option: ${theme}`);
             });
             
             this.filteredPrompts = [...this.prompts];
             
             if (this.prompts.length === 0) {
-                throw new Error('No valid prompts found in the CSV');
+                throw new Error('No valid Hear and Now prompts found in the CSV');
             }
             
         } catch (error) {
-            console.error('Failed to load prompts:', error);
+            console.error('Failed to load Hear and Now prompts:', error);
             this.prompts = [{
                 theme: 'Error',
-                prompt: 'Failed to load prompts. Please check your internet connection and try refreshing.'
+                prompt: 'Failed to load Hear and Now prompts. Please check your internet connection and try refreshing the page.'
             }];
             this.filteredPrompts = [...this.prompts];
         }
@@ -183,6 +189,7 @@ class HereAndNow {
             if (char === '"') {
                 quoteCount++;
                 inQuotes = quoteCount % 2 !== 0;
+                // Don't add the quote character to the result
             } else if (char === ',' && !inQuotes) {
                 result.push(current.trim());
                 current = '';
@@ -201,6 +208,7 @@ class HereAndNow {
         document.getElementById('timerButton').addEventListener('click', () => this.handleTimerButton());
         document.getElementById('themeSelect').addEventListener('change', (e) => this.filterByTheme(e.target.value));
         
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
@@ -239,6 +247,7 @@ class HereAndNow {
             this.updateBackgroundColor();
         }, 150);
         
+        // Reset timer if running
         if (this.isRunning) {
             this.stopTimer();
             this.resetTimerButton();
@@ -257,6 +266,7 @@ class HereAndNow {
             this.updateBackgroundColor();
         }, 150);
         
+        // Reset timer if running
         if (this.isRunning) {
             this.stopTimer();
             this.resetTimerButton();
@@ -276,7 +286,7 @@ class HereAndNow {
         const promptText = document.getElementById('promptText');
         
         if (this.filteredPrompts.length === 0) {
-            promptText.textContent = 'No prompts available for this theme.';
+            promptText.textContent = 'No Hear and Now prompts available for this theme.';
             return;
         }
         
@@ -287,8 +297,10 @@ class HereAndNow {
     updateBackgroundColor() {
         const body = document.body;
         
+        // Remove all background classes
         this.backgroundColors.forEach(color => body.classList.remove(color));
         
+        // Add current background class
         this.currentColorIndex = this.currentIndex % this.backgroundColors.length;
         body.classList.add(this.backgroundColors[this.currentColorIndex]);
     }
@@ -297,66 +309,12 @@ class HereAndNow {
         const button = document.getElementById('timerButton');
         
         if (!this.isRunning && this.timeRemaining === 0) {
+            // Start timer
             this.startTimer();
         } else if (this.isRunning) {
+            // Stop and go to next prompt
             this.stopTimer();
             this.nextPrompt();
             this.resetTimerButton();
         } else {
-            this.resetTimerButton();
-            this.startTimer();
-        }
-    }
-
-    startTimer() {
-        const timerSelect = document.getElementById('timerSelect');
-        const button = document.getElementById('timerButton');
-        const display = document.getElementById('timerDisplay');
-        
-        this.timeRemaining = parseInt(timerSelect.value);
-        this.isRunning = true;
-        
-        button.textContent = 'Next';
-        display.classList.add('active');
-        
-        this.updateTimerDisplay();
-        
-        this.timer = setInterval(() => {
-            this.timeRemaining--;
-            this.updateTimerDisplay();
-            
-            if (this.timeRemaining <= 0) {
-                this.stopTimer();
-                button.textContent = 'Start Again';
-            }
-        }, 1000);
-    }
-
-    stopTimer() {
-        if (this.timer) {
-            clearInterval(this.timer);
-            this.timer = null;
-        }
-        this.isRunning = false;
-        
-        const display = document.getElementById('timerDisplay');
-        display.classList.remove('active');
-    }
-
-    resetTimerButton() {
-        const button = document.getElementById('timerButton');
-        button.textContent = 'Start';
-        this.timeRemaining = 0;
-    }
-
-    updateTimerDisplay() {
-        const display = document.getElementById('timerDisplay');
-        const minutes = Math.floor(this.timeRemaining / 60);
-        const seconds = this.timeRemaining % 60;
-        display.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    new HereAndNow();
-});
+            // Timer finished, start again
