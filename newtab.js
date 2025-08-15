@@ -1,4 +1,4 @@
-class ListeningPrompt{
+class ListeningPrompts{
     constructor() {
         this.prompts = [];
         this.filteredPrompts = [];
