@@ -3,6 +3,7 @@ class ListeningPrompts{
         this.prompts = [];
         this.filteredPrompts = [];
         this.currentIndex = 0;
+        this.promptOrder = [];
         this.timer = null;
         this.timeRemaining = 0;
         this.isRunning = false;
@@ -161,8 +162,11 @@ class ListeningPrompts{
                 console.log(`Added theme option: ${theme}`);
             });
 
-            this.filteredPrompts = [...this.prompts];
-
+            
+            
+            this.promptOrder = this.shuffle([...this.prompts]);
+            this.filteredPrompts = this.promptOrder;
+            this.currentIndex = 0;
             if (this.prompts.length === 0) {
                 throw new Error('No valid listening prompts found in the CSV');
             }
@@ -201,7 +205,13 @@ class ListeningPrompts{
         result.push(current.trim());
         return result;
     }
-
+    shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
     setupEventListeners() {
         document.getElementById('nextButton').addEventListener('click', () => this.nextPrompt());
         document.getElementById('prevButton').addEventListener('click', () => this.prevPrompt());
