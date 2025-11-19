@@ -1,5 +1,6 @@
 class ListeningPrompts{
     constructor() {
+        
         this.prompts = [];
         this.filteredPrompts = [];
         this.currentIndex = 0;
@@ -9,14 +10,19 @@ class ListeningPrompts{
         this.isRunning = false;
         this.backgroundColors = ['bg-blue1', 'bg-blue2', 'bg-yellow', 'bg-darkblue', 'bg-orange'];
         this.currentColorIndex = 0;
-
+        
         // Audio for navigation sound
         this.switchSound = null;
         this.loadSwitchSound();
 
         this.init();
     }
-
+    shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+    }
+}
     async init() {
         await this.loadPrompts();
         this.setupEventListeners();
@@ -239,7 +245,7 @@ class ListeningPrompts{
         } else {
             this.filteredPrompts = this.prompts.filter(p => p.theme === selectedTheme);
         }
-
+        this.shuffle(this.filteredPrompts);
         this.currentIndex = 0;
         this.displayCurrentPrompt();
         this.updateBackgroundColor();
