@@ -324,7 +324,6 @@ class ListeningPrompts{
         } else if (this.isRunning) {
             // Stop and go to next prompt
             this.stopTimer();
-            this.nextPrompt();
             this.resetTimerButton();
         } else {
             // Timer finished, start again
