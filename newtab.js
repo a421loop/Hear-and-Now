@@ -22,21 +22,26 @@ class ListeningPrompts{
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
     }
-}
+}    
     async init() {
         await this.loadPrompts();
         this.setupEventListeners();
         this.displayCurrentPrompt();
-        //new color, new tab - testing
-        // no same color twice
+        // pick a random color
+        let newIndex = Math.floor(Math.random() * this.backgroundColors.length);
+    
+        // avoid repeating the same color
         if (newIndex === this.currentColorIndex) {
             newIndex = (newIndex + 1) % this.backgroundColors.length;
         }
-        
+
+        // save it
         this.currentColorIndex = newIndex;
-        this.currentColorIndex = Math.floor(Math.random()*this.backgroundColors.length);
+    
+        // apply it
         this.updateBackgroundColor();
-    }
+}
+    
 
     loadSwitchSound() {
         console.log('Loading switch sound...');
