@@ -27,6 +27,8 @@ class ListeningPrompts{
         await this.loadPrompts();
         this.setupEventListeners();
         this.displayCurrentPrompt();
+        //new color, new tab - testing
+        this.currentColorIndex = Math.floor(Math.random()*this.backgroundColors.length);
         this.updateBackgroundColor();
     }
 
