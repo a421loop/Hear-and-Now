@@ -28,6 +28,12 @@ class ListeningPrompts{
         this.setupEventListeners();
         this.displayCurrentPrompt();
         //new color, new tab - testing
+        // no same color twice
+        if (newIndex === this.currentColorIndex) {
+            newIndex = (newIndex + 1) % this.backgroundColors.length;
+        }
+        
+        this.currentColorIndex = newIndex;
         this.currentColorIndex = Math.floor(Math.random()*this.backgroundColors.length);
         this.updateBackgroundColor();
     }
