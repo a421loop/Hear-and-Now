@@ -313,14 +313,13 @@ class ListeningPrompts{
     }
 
     updateBackgroundColor() {
-        const body = document.body;
+    const body = document.body;
 
-        // Remove all background classes
-        this.backgroundColors.forEach(color => body.classList.remove(color));
+    // dear god please remove all background classes
+    this.backgroundColors.forEach(color => body.classList.remove(color));
 
-        // Add current background class
-        this.currentColorIndex = this.currentIndex % this.backgroundColors.length;
-        body.classList.add(this.backgroundColors[this.currentColorIndex]);
+    //base color on currentIndex — keep random
+    body.classList.add(this.backgroundColors[this.currentColorIndex]);
     }
 
     handleTimerButton() {
